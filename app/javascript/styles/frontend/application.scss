@@ -4,13 +4,21 @@ html, body {
 
 .wrapper{
   min-height: 100%;
-  margin-bottom: -58px; 
+  margin-bottom: -20px; 
 }
 .wrapper:after {
   content: "";
   display: block;
 }
 .footer, .wrapper:after {
-  height: 58px; 
+  height: 20px;
 }
 
+// Devise form
+.column-border {
+  border-bottom: 3px solid grey;
+}
+
+.form-zone {
+  margin: 20px;
+}
