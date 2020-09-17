@@ -15,7 +15,11 @@
   <body>
     <%= render 'shared/frontend/navbar' %>
     <%= render 'shared/frontend/top_menu' %>
-    <%= yield %>
+    <div class="main">
+      <div class="wrapper">
+        <%= yield %>
+      </div>
+    </div>
     <%= render 'shared/frontend/footer' %>
   </body>
 </html>
