@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <h3 class="m-3">
+        Vendors
+        <%= link_to "Create new vendor", new_dashboard_vendor_path, class: "btn btn-success" %>
+      </h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Online</th>
+            <th></th>
+          </tr>
+        </thead>
+      
+        <tbody>
+          <% @vendors.each do |vendor| %>
+          <tr>
+            <td><%= vendor.title %></td>
+            <td><%= vendor.description %></td>
+            <td><%= vendor.online %></td>
+            <td>
+              <%= link_to "Edit", edit_dashboard_vendor_path(vendor), class: "btn btn-sm btn-info" %>
+              <%= link_to "Delete", dashboard_vendor_path(vendor), method: :delete,
+                                    data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      
+      </table>
+    </div>
+  </div>
+</div>
