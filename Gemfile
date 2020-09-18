@@ -34,6 +34,8 @@ gem 'figaro', '~> 1.2'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'hirb-unicode', '~> 0.0.5'
+  gem 'pry-rails', '~> 0.3.9'
 end
 
 group :development do
