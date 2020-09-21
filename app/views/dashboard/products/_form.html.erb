@@ -1,0 +1,18 @@
+<%= form_with model: [:dashboard, product] do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :list_price %>
+  <%= f.number_field :list_price %>
+
+  <%= f.label :sell_price %>
+  <%= f.number_field :sell_price %>
+
+  <%= f.label :vendor_id, "Vendor" %>
+  <%= f.collection_select :vendor_id, Vendor.available, :id, :title, { prompt: 'Select Vendor' }, { class: 'form-control' } %>
+
+  <%= f.check_box :on_sell %>
+  <%= f.label :on_sell %>
+
+  <%= f.submit (product.name? ? 'Update' : 'Create') %>
+<% end %>

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   namespace :dashboard do
     root 'products#index'
-    resources :products
+    resources :products, except: [:show]
     resources :vendors, except: [:show]
   end
 end
