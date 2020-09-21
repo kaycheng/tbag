@@ -1,13 +1,36 @@
-<h1>Product</h1>
-<%= link_to "Create New Product", new_dashboard_product_path %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <h3 class="m-3">
+        Product
+        <%= link_to "Create New Product", new_dashboard_product_path, class: "btn btn-success" %>
+      </h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>List Price</th>
+            <th>Sell Price</th>
+            <th>On Sell</th>
+            <th></th>
+          </tr>
+        </thead>
 
-<% @products.each do |product| %>
-  <%= product.name %>
-  <%= product.list_price %>
-  <%= product.sell_price %>
-  <%= product.on_sell %>
-  <%= product.code %>
-  <%= link_to 'edit', edit_dashboard_product_path(product) %> |
-  <%= link_to 'delete', dashboard_product_path(product), method: :delete, data: {confirm: "Are you sure?"} %>
-  <hr>
-<% end %>
+        <tbody>
+          <% @products.each do |product| %>
+            <tr>
+              <td><%= link_to "#{product.name} [#{product.code}]", "#" %></td>
+              <td><%= product.list_price %></td>
+              <td><%= product.sell_price %></td>
+              <td><%= product.on_sell %></td>
+              <td>
+                <%= link_to 'edit', edit_dashboard_product_path(product) %> |
+                <%= link_to 'delete', dashboard_product_path(product), method: :delete, data: {confirm: "Are you sure?"} %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
