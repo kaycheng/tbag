@@ -31,6 +31,7 @@ gem 'devise', '~> 4.7', '>= 4.7.2'
 gem 'omniauth-google-oauth2', '~> 0.8.0'
 gem 'figaro', '~> 1.2'
 gem 'paranoia', '~> 2.4', '>= 2.4.2'
+gem 'friendly_id', '~> 5.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
