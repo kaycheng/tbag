@@ -2,7 +2,7 @@ class Dashboard::ProductsController < Dashboard::BaseController
   before_action :find_product, only: [:edit, :update, :destroy]
 
   def index
-    @products = Product.all
+    @products = Product.all.includes(:vendor)
   end
 
   def new
@@ -33,7 +33,7 @@ class Dashboard::ProductsController < Dashboard::BaseController
 
   private
   def product_params
-    params.require(:product).permit(:name, :description, :list_price, :sell_price, :on_sell, :vendor_id)
+    params.require(:product).permit(:name, :content, :list_price, :sell_price, :on_sell, :vendor_id)
   end
 
   def find_product
