@@ -13,7 +13,7 @@ class Dashboard::ProductsController < Dashboard::BaseController
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to edit_dashboard_products_path(@product), notice: "Product is created successfully."
+      redirect_to dashboard_products_path, notice: "Product is created successfully."
     else
       render new_dashboard_product_path, notice: "There are some errors occurred. Please check again."
     end
