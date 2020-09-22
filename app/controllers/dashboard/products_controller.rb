@@ -7,12 +7,13 @@ class Dashboard::ProductsController < Dashboard::BaseController
 
   def new
     @product = Product.new
+    @product.skus.build
   end
 
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to dashboard_products_path, notice: "Product is created successfully."
+      redirect_to edit_dashboard_products_path(@product), notice: "Product is created successfully."
     else
       render new_dashboard_product_path, notice: "There are some errors occurred. Please check again."
     end
@@ -33,7 +34,15 @@ class Dashboard::ProductsController < Dashboard::BaseController
 
   private
   def product_params
-    params.require(:product).permit(:name, :content, :list_price, :sell_price, :on_sell, :vendor_id)
+    params.require(:product).permit(:name, 
+                                    :content, 
+                                    :list_price, 
+                                    :sell_price, 
+                                    :on_sell, 
+                                    :vendor_id,
+                                    skus_attributes: [
+                                      :id, :spec, :quantity, :_destroy
+                                    ])
   end
 
   def find_product
