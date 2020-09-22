@@ -1,4 +1,4 @@
-<div class="row mb-3">
+<div class="row mb-3 nested-fields" data-new-record="<%= form.object.new_record? %>">
   <div class="col-8">
     <%= form.text_field :spec, placeholder: "Spec", class: "form-control" %>
   </div>
@@ -6,6 +6,7 @@
     <%= form.number_field :quantity, placeholder: "Quantity", class: "form-control" %>
   </div>
   <div class="col-1">
-    x
+    <%= link_to "Delete", "#", class: "btn btn-sm btn-danger", data: {action: "product-form#remove_sku"} %>
   </div>
+  <%= form.hidden_field :_destroy %>
 </div>
