@@ -1,1 +1,30 @@
-<h1>Categories</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-10">
+      <h3 class="m-3">
+        Categories
+        <%= link_to "Create new category", new_dashboard_category_path, class: "btn btn-success" %>
+      </h3>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Category Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @categories.each do |category| %>
+          <tr>
+            <td><%= link_to category.name, edit_dashboard_category_path(category), class: "text-decoration-none text-dark" %></td>
+            <td>
+              <%= link_to "Delete", dashboard_category_path(category), method: :delete,
+                  data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+            </td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

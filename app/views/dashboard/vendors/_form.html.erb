@@ -16,7 +16,7 @@
           <%= f.label :online, class: "font-weight-bold" %>
         </div>
         <div class="action">
-          <%= f.submit (@vendor.title? ? 'Update' : 'Create'), class: 'btn btn-secondary' %>
+          <%= f.submit (f.object.new_record? ? 'Create' : 'Update'), class: 'btn btn-secondary' %>
         </div>
 
       <% end %>
