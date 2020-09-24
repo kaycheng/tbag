@@ -1,19 +1,9 @@
 <div class="second-nav d-block m-3">
   <ul class="nav justify-content-center">
-    <li class="nav-item">
-      <a class="nav-link text-decoration-none text-dark" href="#">Top</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-decoration-none text-dark" href="#">Buttom</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-decoration-none text-dark" href="#">Dress</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-decoration-none text-dark" href="#">Suit</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link text-decoration-none text-dark" href="#">Accessory</a>
-    </li>
+    <% categories.each do |category| %>
+      <li class="nav-item">
+        <%= link_to category.name, category_path(category), class: "nav-link text-decoration-none text-dark" %>
+      </li>
+    <% end %>
   </ul>
 </div>

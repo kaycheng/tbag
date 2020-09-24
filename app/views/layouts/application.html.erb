@@ -15,7 +15,7 @@
   <body>
     <%= render 'shared/notice' if notice %>
     <%= render 'shared/frontend/navbar' %>
-    <%= render 'shared/frontend/top_menu' %>
+    <%= render 'shared/frontend/top_menu', categories: @categories %>
     <div class="main">
       <div class="wrapper">
         <%= yield %>
