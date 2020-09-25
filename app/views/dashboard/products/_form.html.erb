@@ -1,23 +1,47 @@
 <div class="container m-3">
   <div class="row justify-content-center">
-    <div class="col-md-8 col-sm-12">
+    <div class="col-md-10 col-sm-12">
       <%= form_with model: [:dashboard, product] do |f| %>
         <div class="form-group">
-          <%= f.label :name, class: "font-weight-bold" %>
-          <%= f.text_field :name, class: "form-control" %>
+          <b>Add Photo: </b><%= f.file_field :cover_image, class: "mb-3" %><br>
+          <%= image_tag f.object.cover_image.variant(resize_to_limit: [600, 400]) if f.object.cover_image.attached? %>
         </div>
-        <div class="form-group">
-          <%= f.label :list_price, class: "font-weight-bold" %>
-          <%= f.number_field :list_price, class: "form-control" %>
+        <hr>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <%= f.label :name, class: "font-weight-bold" %>
+              <%= f.text_field :name, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="form-group">
+              <%= f.label :vendor_id, "Vendor", class: "font-weight-bold" %>
+              <%= f.collection_select :vendor_id, Vendor.available, :id, :title, { prompt: 'Select Vendor' }, { class: 'form-control' } %>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <div class="form-group">
+              <%= f.label :category_id, "Category", class: "font-weight-bold" %>
+              <%= f.collection_select :category_id, Category.all, :id, :name, { prompt: 'Select Category' }, { class: 'form-control' } %>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <%= f.label :sell_price, class: "font-weight-bold" %>
-          <%= f.number_field :sell_price, class: "form-control" %>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <%= f.label :list_price, class: "font-weight-bold" %>
+              <%= f.number_field :list_price, class: "form-control" %>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <div class="form-group">
+              <%= f.label :sell_price, class: "font-weight-bold" %>
+              <%= f.number_field :sell_price, class: "form-control" %>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <%= f.label :vendor_id, "Vendor", class: "font-weight-bold" %>
-          <%= f.collection_select :vendor_id, Vendor.available, :id, :title, { prompt: 'Select Vendor' }, { class: 'form-control' } %>
-        </div>
+        
         <div class="form-group">
           <%= f.check_box :on_sell %>
           <%= f.label :on_sell, class: "font-weight-bold" %>

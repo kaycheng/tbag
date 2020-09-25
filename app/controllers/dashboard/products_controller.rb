@@ -40,6 +40,8 @@ class Dashboard::ProductsController < Dashboard::BaseController
                                     :sell_price, 
                                     :on_sell, 
                                     :vendor_id,
+                                    :category_id,
+                                    :cover_image,
                                     skus_attributes: [
                                       :id, :spec, :quantity, :_destroy
                                     ])
