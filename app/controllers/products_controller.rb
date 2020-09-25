@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
-  def index
+  def show
+    @product = Product.friendly.find(params[:id])
   end
 end
