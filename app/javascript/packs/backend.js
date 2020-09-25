@@ -19,3 +19,5 @@ import 'scripts/backend';
 
 import 'styles/shared';
 import 'styles/backend';
+
+import "controllers"

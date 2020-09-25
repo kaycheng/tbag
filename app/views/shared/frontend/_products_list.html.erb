@@ -1,0 +1,22 @@
+<section class="product_list">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-12">
+        <div class="row row-cols-md-4">
+          <% products.each do |product| %>
+            <div class="col-md-3 col-sm-6 mt-2 mb-2">
+              <div class="card h-100" style="width: 16rem;">
+                <%= image_tag product.cover_image, class: "card-img-top" if product.cover_image.attached? %>
+                <div class="card-body">
+                  <h5 class="card-title"><%= product.name %></h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.
+                  </p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
