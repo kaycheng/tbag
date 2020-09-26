@@ -7,5 +7,14 @@ RSpec.describe Cart, type: :model do
       cart.add_item(2)
       expect(cart.empty?).to be false
     end
+
+    it "If we add same item to cart, the product quantity will be changed instead of cart item." do
+      cart = Cart.new
+      3.times { cart.add_item(1) }
+      2.times { cart.add_item(2) }
+      
+      expect(cart.items.count).to be 2
+      expect(cart.items.first.quantity).to be 3
+    end
   end
 end
