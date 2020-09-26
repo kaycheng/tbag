@@ -26,5 +26,17 @@ RSpec.describe Cart, type: :model do
       cart.add_item(p1.id)
       expect(cart.items.first.product).to be_a Product
     end
+
+    it "Every cart can count price." do
+      cart = Cart.new
+
+      p1 = FactoryBot.create(:product, sell_price: 10)
+      p2 = FactoryBot.create(:product, sell_price: 5)
+
+      3.times { cart.add_item(p1.id) }
+      2.times { cart.add_item(p2.id) }
+
+      expect(cart.total_price).to eq 40
+    end
   end
 end

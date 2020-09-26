@@ -18,4 +18,12 @@ class Cart
   def empty?
     @items.empty?
   end
+
+  def total_price
+    # total = 0
+    # @items.each { |item| total = total + item.total_price }
+    # p total
+
+    @items.reduce(0) {|sum, item| sum + item.total_price}
+  end
 end
