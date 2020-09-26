@@ -19,12 +19,12 @@ RSpec.describe Cart, type: :model do
 
     it "We can add item to cart, and we can put out the same product." do
       cart = Cart.new
-      v1 = Vendor.create(title: "v1")
-      p1 = Product.create(name: "p1", vendor: v1)
+      # v1 = Vendor.create(title: "v1")
+      # p1 = Product.create(name: "p1", vendor: v1)
+      p1 = FactoryBot.create(:product)
 
       cart.add_item(p1.id)
       expect(cart.items.first.product).to be_a Product
     end
-
   end
 end
