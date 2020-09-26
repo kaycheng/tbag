@@ -39,4 +39,22 @@ RSpec.describe Cart, type: :model do
       expect(cart.total_price).to eq 40
     end
   end
+
+  describe "Further functions" do
+    it "The cart content can be hash and store in session" do
+      cart = Cart.new
+      
+      3.times { cart.add_item(1) }
+      2.times { cart.add_item(2) }
+
+      cart_hash = {
+        "items" => [
+          {"product_id" => 1, "quantity" => 3},
+          {"product_id" => 2, "quantity" => 2}
+        ]
+      }
+
+      expect(cart.serialize).to eq cart_hash
+    end
+  end
 end
