@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe CartItem, type: :model do
+  let(:cart) { Cart.new } 
+
   describe "Basic function" do
     it "Every cart item can count price." do
-      cart = Cart.new
       
       p1 = FactoryBot.create(:product, sell_price: 10)
       p2 = FactoryBot.create(:product, sell_price: 5)
