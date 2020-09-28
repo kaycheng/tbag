@@ -27,10 +27,12 @@
         <% end %>
       </li>
 
-      <li class="nav-item">
+      <li class="nav-item" data-controller="cart">
         <a class="nav-link" href="#">
           <i class="fas fa-shopping-cart fa-lg"></i>
-          (<%= current_cart.items.count %>)
+          <span data-target="cart.count" data-action="addToCart@document->cart#updateCart">
+            (<%= current_cart.items.count %>)
+          </span>
         </a>
       </li>
     </ul>

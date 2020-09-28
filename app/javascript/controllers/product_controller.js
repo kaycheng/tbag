@@ -25,10 +25,19 @@ export default class extends Controller {
         type: 'POST',
         data,
         success: resp => {
-          console.log(resp);
+          if (resp.status === "ok") {
+            let item_count = resp.items || 0;
+            // post evt
+            let evt = new CustomEvent('addToCart', {'detail': {item_count} });
+            document.dispatchEvent(evt);
+          }
         },
         error: err => {
           console.log(err);
+        },
+        complete: () => {
+          this.addToCartButtonTarget.classList.remove("spinner-grow", "text-white");
+          this.addToCartButtonTarget.innerHTML = 'Add to Cart';
         }
       })
     }
