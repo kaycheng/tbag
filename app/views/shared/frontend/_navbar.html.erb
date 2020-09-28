@@ -15,7 +15,7 @@
         </button>
       </form>
 
-      <li class="nav-item">
+      <li class="nav-item ml-2">
         <% if user_signed_in? %> 
           <%= link_to edit_user_registration_path, class: "nav-link" do %>
             <i class="fas fa-user fa-lg"></i>
@@ -30,6 +30,7 @@
       <li class="nav-item">
         <a class="nav-link" href="#">
           <i class="fas fa-shopping-cart fa-lg"></i>
+          (<%= current_cart.items.count %>)
         </a>
       </li>
     </ul>
