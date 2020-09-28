@@ -9,4 +9,15 @@ class Api::V1::UtilsController < ApplicationController
       render json: { status: 'duplicated', email: email}
     end
   end
+
+  def cart
+    product = Product.friendly.find(params[:id])
+    if product
+      cart = Cart.from_hash(session[:cart_0429])
+      cart.add_item(product.code)
+      session[:cart_0429] = cart.serialize
+
+      render json: { status: 'ok', item: cart.items.count }
+    end
+  end
 end
