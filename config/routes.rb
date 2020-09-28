@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'welcome#index'
   resources :categories, only: [:show]
   resources :products, only: [:show]
+  resource :cart, only: [:show, :destroy]
   
   namespace :dashboard do
     root 'products#index'
