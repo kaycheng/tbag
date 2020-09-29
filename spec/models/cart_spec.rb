@@ -6,14 +6,14 @@ RSpec.describe Cart, type: :model do
   describe "Basic functions" do
 
     it "We can add items to cart, then it won't be empty" do
-      cart.add_item(2)
+      cart.add_sku(2)
       # expect(cart.empty?).to be false
       expect(cart).not_to be_empty
     end
 
     it "If we add same item to cart, the product quantity will be changed instead of cart item." do
-      3.times { cart.add_item(1) }
-      2.times { cart.add_item(2) }
+      3.times { cart.add_sku(1) }
+      2.times { cart.add_sku(2) }
       
       expect(cart.items.count).to be 2
       expect(cart.items.first.quantity).to be 3
@@ -22,19 +22,19 @@ RSpec.describe Cart, type: :model do
     it "We can add item to cart, and we can put out the same product." do
       # v1 = Vendor.create(title: "v1")
       # p1 = Product.create(name: "p1", vendor: v1)
-      p1 = FactoryBot.create(:product)
+      p1 = FactoryBot.create(:product, :with_skus)
 
-      cart.add_item(p1.id)
+      cart.add_sku(p1.skus.first.id)
       expect(cart.items.first.product).to be_a Product
     end
 
     it "Every cart can count price." do
 
-      p1 = FactoryBot.create(:product, sell_price: 10)
-      p2 = FactoryBot.create(:product, sell_price: 5)
+      p1 = FactoryBot.create(:product, :with_skus, sell_price: 10)
+      p2 = FactoryBot.create(:product, :with_skus, sell_price: 5)
 
-      3.times { cart.add_item(p1.id) }
-      2.times { cart.add_item(p2.id) }
+      3.times { cart.add_sku(p1.skus.first.id) }
+      2.times { cart.add_sku(p2.skus.first.id) }
 
       expect(cart.total_price).to eq 40
     end
@@ -43,8 +43,8 @@ RSpec.describe Cart, type: :model do
   describe "Further functions" do
     it "The cart content can be hash and store in session" do
 
-      3.times { cart.add_item(1) }
-      2.times { cart.add_item(2) }
+      3.times { cart.add_sku(1) }
+      2.times { cart.add_sku(2) }
 
       expect(cart.serialize).to eq cart_hash
     end
@@ -59,8 +59,8 @@ RSpec.describe Cart, type: :model do
     def cart_hash
       {
         "items" => [
-          {"product_id" => 1, "quantity" => 3},
-          {"product_id" => 2, "quantity" => 2}
+          {"sku_id" => 1, "quantity" => 3},
+          {"sku_id" => 2, "quantity" => 2}
         ]
       }
     end
