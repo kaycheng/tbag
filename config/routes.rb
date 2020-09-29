@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     end
   end
   
+  resources :orders, expect: [:new, :edit, :update, :destroy]
+
   namespace :dashboard do
     root 'products#index'
     resources :products, except: [:show]
