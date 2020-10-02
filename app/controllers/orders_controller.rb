@@ -46,8 +46,14 @@ class OrdersController < ApplicationController
     result = JSON.parse(resp.body)
 
     if result["returnCode"] == "0000"
+      order_id = result["info"]["orderId"]
+      transaction_id = result["info"]["transactionId"]
       # Change order status
+      order = current_user.orders.find_by(num: order_id)
+      order.pay!(transaction_id: transaction_id)
       # Clear current_cart
+      session[:cart_0429] = nil
+      redirect_to root_path, notice: "Pay successfully."
     else
       redirect_to root_path, notice: "Some errors occurred."
     end
