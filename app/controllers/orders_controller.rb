@@ -1,5 +1,9 @@
 class OrdersController < ApplicationController
 
+  def index
+    @orders = current_user.orders.order(id: :desc)
+  end
+
   def create
     @order = current_user.orders.build(order_params)
 
