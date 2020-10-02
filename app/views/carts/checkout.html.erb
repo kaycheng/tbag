@@ -7,7 +7,7 @@
     <%= form_with model: @order do |f| %>
       <div class="form-row">
         <div class="col">
-          <%= f.label :recipient, class: "font-weight-bold" %>
+          <%= f.label :recipient, autofocus: true, class: "font-weight-bold" %>
           <%= f.text_field :recipient, class: "form-control" %>
         </div>
         <div class="col">

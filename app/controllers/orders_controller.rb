@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+
   def create
     @order = current_user.orders.build(order_params)
 
@@ -7,9 +8,27 @@ class OrdersController < ApplicationController
     end
 
     if @order.save
-      redirect_to root_path, notice: 'ok'
-    else
-      render 'carts/checkout'
+      resp = Faraday.post("#{ENV['LINE_PAY_ENDPOINT']}/v2/payments/request") do |req|
+        req.headers['Content-Type'] = 'application/json'
+        req.headers['X-LINE-ChannelId'] = ENV['LINE_PAY_ID']
+        req.headers['X-LINE-ChannelSecret'] = ENV['LINE_PAY_SECRET']
+        req.body = {
+          productName: "Fighting",
+          amount: current_cart.total_price.to_i,
+          currency: "TWD",
+          confirmUrl: "http://localhost:3000/orders/confirm",
+          orderId: @order.num
+        }.to_json
+        
+      end
+
+      result = JSON.parse(resp.body)
+      if result["returnCode"] == "0000"
+        payment_url = result["info"]["paymentUrl"]["web"]
+        redirect_to payment_url
+      else
+        render 'carts/checkout', notice: "Errors occurred"
+      end
     end
   end
 
@@ -17,4 +36,6 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:recipient, :tel, :address, :note)
   end
+
+
 end
