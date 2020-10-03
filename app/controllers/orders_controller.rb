@@ -63,6 +63,30 @@ class OrdersController < ApplicationController
     end
   end
 
+  def cancel
+    @order = current_user.orders.find(params[:id])
+
+    if @order.paid?
+      resp = Faraday.post("#{ENV['LINE_PAY_ENDPOINT']}/v2/payments/#{@order.transaction_id}/refund") do |req|
+        req.headers['Content-Type'] = 'application/json'
+        req.headers['X-LINE-ChannelId'] = ENV['LINE_PAY_ID']
+        req.headers['X-LINE-ChannelSecret'] = ENV['LINE_PAY_SECRET']
+      end
+
+      result = JSON.parse(resp.body)
+
+      if result["returnCode"] == "0000"
+        @order.cancel!
+        redirect_to orders_path, notice: "Order #{@order.num} is cancelled and refunded."
+      else
+        redirect_to orders_path, notice: "Some errors occurred."
+      end
+    else
+      @order.cancel!
+      redirect_to orders_path, notice: "Order #{@order.num} is cancelled."
+    end
+  end
+
   private
   def order_params
     params.require(:order).permit(:recipient, :tel, :address, :note)
