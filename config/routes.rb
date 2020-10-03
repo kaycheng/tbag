@@ -15,11 +15,13 @@ Rails.application.routes.draw do
   
   resources :orders, except: [:new, :edit, :update, :destroy] do
     collection do
-      get :confirm  # order/confirm
+      get :confirm  # orders/confirm
     end
 
     member do
-      delete :cancel  # order/:id/cancel
+      delete :cancel    # orders/:id/cancel
+      post :pay         # orders/:id/pay
+      get :pay_confirm  # orders/:id/pay_confirm
     end
   end
 

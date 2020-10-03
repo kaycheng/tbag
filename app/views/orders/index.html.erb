@@ -32,7 +32,8 @@
               <td><%= order.state %></td>
               <td><%= order.total_price %></td>
               <td>
-                <%= link_to "Pay", "#", class: "btn btn-sm btn-success" if order.may_pay? %>
+                <%= link_to "Pay", pay_order_path(order), method: :post, data: { confirm: "Are you sure?" },
+                                   class: "btn btn-sm btn-success" if order.may_pay? %>
                 <%= link_to "Cancel", cancel_order_path(order), method: :delete, data: { confirm: "Are you sure?"},
                                       class: "btn btn-sm btn-danger" if order.may_cancel? %>
               </td>

@@ -87,6 +87,56 @@ class OrdersController < ApplicationController
     end
   end
 
+  def pay
+    @order = current_user.orders.find(params[:id])
+    
+    resp = Faraday.post("#{ENV['LINE_PAY_ENDPOINT']}/v2/payments/request") do |req|
+      req.headers['Content-Type'] = 'application/json'
+      req.headers['X-LINE-ChannelId'] = ENV['LINE_PAY_ID']
+      req.headers['X-LINE-ChannelSecret'] = ENV['LINE_PAY_SECRET']
+      req.body = {
+        productName: "Fighting",
+        amount: @order.total_price.to_i,
+        currency: "TWD",
+        confirmUrl: "http://localhost:3000/orders/#{@order.id}/pay_confirm",
+        orderId: @order.num
+      }.to_json  
+    end
+
+    result = JSON.parse(resp.body)
+    if result["returnCode"] == "0000"
+      payment_url = result["info"]["paymentUrl"]["web"]
+      redirect_to payment_url
+    else
+      redirect_to orders_path, notice: "There are some errors occurred."
+    end
+  end
+
+  def pay_confirm
+    @order = current_user.orders.find(params[:id])
+
+    resp = Faraday.post("#{ENV['LINE_PAY_ENDPOINT']}/v2/payments/#{params[:transactionId]}/confirm") do |req|
+      req.headers['Content-Type'] = 'application/json'
+      req.headers['X-LINE-ChannelId'] = ENV['LINE_PAY_ID']
+      req.headers['X-LINE-ChannelSecret'] = ENV['LINE_PAY_SECRET']
+      req.body = {
+        amount: @order.total_price.to_i,
+        currency: "TWD",
+      }.to_json
+    end
+
+    result = JSON.parse(resp.body)
+
+    if result["returnCode"] == "0000"
+      transaction_id = result["info"]["transactionId"]
+      @order.pay!(transaction_id: transaction_id)
+      
+      redirect_to orders_path, notice: "Pay successfully."
+    else
+      redirect_to orders_path, notice: "Some errors occurred."
+    end
+  end
+
   private
   def order_params
     params.require(:order).permit(:recipient, :tel, :address, :note)
