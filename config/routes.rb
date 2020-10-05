@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :dashboard do
+  namespace :dashboard, path: "cs0429cem" do
     root 'products#index'
     resources :products, except: [:show]
     resources :vendors, except: [:show]

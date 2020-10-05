@@ -1,10 +1,9 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-10">
-      <h3 class="m-3">
-        Vendors
-        <%= link_to "Create new vendor", new_dashboard_vendor_path, class: "btn btn-success" %>
-      </h3>
+      <h3 class="m-3">Vendors</h3>
+      <div class="mb-3"><%= link_to "Create new vendor", new_dashboard_vendor_path, class: "btn btn-success" %></div>
+      
       <table class="table">
         <thead>
           <tr>
@@ -18,11 +17,10 @@
         <tbody>
           <% @vendors.each do |vendor| %>
           <tr>
-            <td><%= vendor.title %></td>
+            <td><%= link_to vendor.title, edit_dashboard_vendor_path(vendor), class: "text-decoration-none text-dark" %></td>
             <td><%= vendor.description %></td>
             <td><%= vendor.online %></td>
             <td>
-              <%= link_to "Edit", edit_dashboard_vendor_path(vendor), class: "btn btn-sm btn-info" %>
               <%= link_to "Delete", dashboard_vendor_path(vendor), method: :delete,
                                     data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
             </td>
