@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :find_order, only: [:cancel, :pay, :pay_confirm]
 
   def index
     @orders = current_user.orders.order(id: :desc)
@@ -12,24 +13,17 @@ class OrdersController < ApplicationController
     end
 
     if @order.save
-      resp = Faraday.post("#{ENV['LINE_PAY_ENDPOINT']}/v2/payments/request") do |req|
-        req.headers['Content-Type'] = 'application/json'
-        req.headers['X-LINE-ChannelId'] = ENV['LINE_PAY_ID']
-        req.headers['X-LINE-ChannelSecret'] = ENV['LINE_PAY_SECRET']
-        req.body = {
-          productName: "Fighting",
-          amount: current_cart.total_price.to_i,
-          currency: "TWD",
-          confirmUrl: "http://localhost:3000/orders/confirm",
-          orderId: @order.num
-        }.to_json
-        
-      end
+      linepay = LinepayService.new('payments/request')
+      linepay.perform({
+        productName: "BFF",
+        amount: current_cart.total_price.to_i,
+        currency: "TWD",
+        confirmUrl: "http://localhost:3000/orders/confirm",
+        orderId: @order.num
+      })
 
-      result = JSON.parse(resp.body)
-      if result["returnCode"] == "0000"
-        payment_url = result["info"]["paymentUrl"]["web"]
-        redirect_to payment_url
+      if linepay.success?
+        redirect_to linepay.payment_url
       else
         render 'carts/checkout', notice: "Errors occurred"
       end
@@ -37,45 +31,30 @@ class OrdersController < ApplicationController
   end
 
   def confirm
-    resp = Faraday.post("#{ENV['LINE_PAY_ENDPOINT']}/v2/payments/#{params[:transactionId]}/confirm") do |req|
-      req.headers['Content-Type'] = 'application/json'
-      req.headers['X-LINE-ChannelId'] = ENV['LINE_PAY_ID']
-      req.headers['X-LINE-ChannelSecret'] = ENV['LINE_PAY_SECRET']
-      req.body = {
-        amount: current_cart.total_price.to_i,
-        currency: "TWD",
-      }.to_json
-    end
+    linepay = LinepayService.new("payments/#{params["transactionId"]}/confirm")
+    linepay.perform({
+      amount: current_cart.total_price.to_i,
+      currency: "TWD"
+    })
 
-    result = JSON.parse(resp.body)
-
-    if result["returnCode"] == "0000"
-      order_id = result["info"]["orderId"]
-      transaction_id = result["info"]["transactionId"]
+    if linepay.success?
       # Change order status
-      order = current_user.orders.find_by(num: order_id)
-      order.pay!(transaction_id: transaction_id)
+      @order = current_user.orders.find_by(num: linepay.order[:order_id])
+      @order.pay!(transaction_id: linepay.order[:transaction_id])
       # Clear current_cart
       session[:cart_0429] = nil
-      redirect_to root_path, notice: "Pay successfully."
+      redirect_to orders_path, notice: "Pay successfully."
     else
-      redirect_to root_path, notice: "Some errors occurred."
+      redirect_to orders_path, notice: "There are some errors occurred."
     end
   end
 
   def cancel
-    @order = current_user.orders.find(params[:id])
-
     if @order.paid?
-      resp = Faraday.post("#{ENV['LINE_PAY_ENDPOINT']}/v2/payments/#{@order.transaction_id}/refund") do |req|
-        req.headers['Content-Type'] = 'application/json'
-        req.headers['X-LINE-ChannelId'] = ENV['LINE_PAY_ID']
-        req.headers['X-LINE-ChannelSecret'] = ENV['LINE_PAY_SECRET']
-      end
-
-      result = JSON.parse(resp.body)
-
-      if result["returnCode"] == "0000"
+      linepay = LinepayService.new("payments/#{@order.transaction_id}/refund")
+      linepay.perform(refundAmount: @order.total_price.to_i)
+    
+      if linepay.success?
         @order.cancel!
         redirect_to orders_path, notice: "Order #{@order.num} is cancelled and refunded."
       else
@@ -88,49 +67,31 @@ class OrdersController < ApplicationController
   end
 
   def pay
-    @order = current_user.orders.find(params[:id])
-    
-    resp = Faraday.post("#{ENV['LINE_PAY_ENDPOINT']}/v2/payments/request") do |req|
-      req.headers['Content-Type'] = 'application/json'
-      req.headers['X-LINE-ChannelId'] = ENV['LINE_PAY_ID']
-      req.headers['X-LINE-ChannelSecret'] = ENV['LINE_PAY_SECRET']
-      req.body = {
-        productName: "Fighting",
-        amount: @order.total_price.to_i,
-        currency: "TWD",
-        confirmUrl: "http://localhost:3000/orders/#{@order.id}/pay_confirm",
-        orderId: @order.num
-      }.to_json  
-    end
+    linepay = LinepayService.new("payments/request")
+    linepay.perform({
+      productName: "BFF",
+      amount: @order.total_price.to_i,
+      currency: "TWD",
+      confirmUrl: "http://localhost:3000/orders/#{@order.id}/pay_confirm",
+      orderId: @order.num
+    })
 
-    result = JSON.parse(resp.body)
-    if result["returnCode"] == "0000"
-      payment_url = result["info"]["paymentUrl"]["web"]
-      redirect_to payment_url
+    if linepay.success?
+      redirect_to linepay.payment_url
     else
       redirect_to orders_path, notice: "There are some errors occurred."
     end
   end
 
   def pay_confirm
-    @order = current_user.orders.find(params[:id])
+    linepay = LinepayService.new("payments/#{params[:transactionId]}/confirm")
+    linepay.perform({
+      amount: @order.total_price.to_i,
+      currency: "TWD"
+    })
 
-    resp = Faraday.post("#{ENV['LINE_PAY_ENDPOINT']}/v2/payments/#{params[:transactionId]}/confirm") do |req|
-      req.headers['Content-Type'] = 'application/json'
-      req.headers['X-LINE-ChannelId'] = ENV['LINE_PAY_ID']
-      req.headers['X-LINE-ChannelSecret'] = ENV['LINE_PAY_SECRET']
-      req.body = {
-        amount: @order.total_price.to_i,
-        currency: "TWD",
-      }.to_json
-    end
-
-    result = JSON.parse(resp.body)
-
-    if result["returnCode"] == "0000"
-      transaction_id = result["info"]["transactionId"]
-      @order.pay!(transaction_id: transaction_id)
-      
+    if linepay.success?
+      @order.pay!(transaction_id: linepay.order[:transaction_id])
       redirect_to orders_path, notice: "Pay successfully."
     else
       redirect_to orders_path, notice: "Some errors occurred."
@@ -142,5 +103,8 @@ class OrdersController < ApplicationController
     params.require(:order).permit(:recipient, :tel, :address, :note)
   end
 
+  def find_order
+    @order = current_user.orders.find(params[:id])
+  end
 
 end
