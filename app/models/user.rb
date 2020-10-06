@@ -6,6 +6,11 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: %i[google_oauth2]
 
   has_many :orders
+
+  enum role: {
+    admin: 0,
+    user: 1
+  }
   
   def self.from_omniauth(access_token)
     data = access_token.info
@@ -20,5 +25,4 @@ class User < ApplicationRecord
     end
     user
   end
-
 end
