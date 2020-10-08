@@ -46,6 +46,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 6.1'
   gem 'faker', '~> 2.14'
   gem 'database_cleaner', '~> 1.8', '>= 1.8.5'
+  gem 'letter_opener', '~> 1.4', '>= 1.4.1'
 end
 
 group :development do
