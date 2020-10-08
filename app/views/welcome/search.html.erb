@@ -1,0 +1,21 @@
+<div class="container">
+  <h3 class="mb-3">Search Result</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Introduce</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= link_to product.name, product_path(product), class: "text-decoration-none text-dark" %></td>
+          <td><%= product.content %></td>
+          <td><%= product.sell_price %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
