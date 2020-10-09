@@ -41,6 +41,7 @@ class OrdersController < ApplicationController
       # Change order status
       @order = current_user.orders.find_by(num: linepay.order[:order_id])
       @order.pay!(transaction_id: linepay.order[:transaction_id])
+      NotifyMailer.pay_confirm(current_user, @order).deliver_now
       # Clear current_cart
       session[:cart_0429] = nil
       redirect_to orders_path, notice: "Pay successfully."
