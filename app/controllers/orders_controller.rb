@@ -57,12 +57,14 @@ class OrdersController < ApplicationController
     
       if linepay.success?
         @order.cancel!
+        NotifyMailer.pay_cancelled(current_user, @order).deliver_now
         redirect_to orders_path, notice: "Order #{@order.num} is cancelled and refunded."
       else
         redirect_to orders_path, notice: "Some errors occurred."
       end
     else
       @order.cancel!
+      NotifyMailer.order_cancelled(current_user, @order).deliver_now
       redirect_to orders_path, notice: "Order #{@order.num} is cancelled."
     end
   end
@@ -93,6 +95,7 @@ class OrdersController < ApplicationController
 
     if linepay.success?
       @order.pay!(transaction_id: linepay.order[:transaction_id])
+      NotifyMailer.pay_confirm(current_user, @order).deliver_now
       redirect_to orders_path, notice: "Pay successfully."
     else
       redirect_to orders_path, notice: "Some errors occurred."
