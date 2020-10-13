@@ -1,0 +1,29 @@
+<section class="product_list mb-4">
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col-12">
+        <h2 class="text-center">NEWEST PRODUCTS</h2>
+      </div>
+    </div>
+    <hr class="welcome-featured mt-1 mb-4">
+    <div class="row justify-content-center mt-2">
+      <div class="col-12">
+        <div class="row row-cols-md-4 justify-content-center">
+          <% products.each do |product| %>
+          <div class="col-md-3 col-sm-6 mt-2 mb-2">
+            <div class="card h-100 border-0" style="width: 16rem;">
+              <%= link_to product_path(product), class: "text-decoration-none text-dark" do %>
+              <%= image_tag product.cover_image, class: "card-img-top" if product.cover_image.attached? %>
+              <div class="card-body">
+                <h5 class="card-title"><%= product.name %></h5>
+                <p class="card-text text-muted"><%= product.sell_price %></p>
+              </div>
+              <% end %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
