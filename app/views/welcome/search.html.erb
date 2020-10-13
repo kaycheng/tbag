@@ -3,6 +3,7 @@
   <table class="table">
     <thead>
       <tr>
+        <th></th>
         <th>Name</th>
         <th>Introduce</th>
         <th>Price</th>
@@ -11,8 +12,9 @@
     <tbody>
       <% @products.each do |product| %>
         <tr>
+          <td><%= image_tag product.cover_image.variant(resize_to_limit: [80, 120]) if product.cover_image.attached? %></td>
           <td><%= link_to product.name, product_path(product), class: "text-decoration-none text-dark" %></td>
-          <td><%= product.content %></td>
+          <td><%= truncate(strip_tags(product.content.to_s), length: 30) %></td>
           <td><%= product.sell_price %></td>
         </tr>
       <% end %>

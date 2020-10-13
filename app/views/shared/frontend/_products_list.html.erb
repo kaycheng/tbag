@@ -9,8 +9,11 @@
                 <%= link_to product_path(product), class: "text-decoration-none text-dark" do %>
                   <%= image_tag product.cover_image, class: "card-img-top" if product.cover_image.attached? %>
                   <div class="card-body">
-                    <h5 class="card-title"><%= product.name %></h5>
-                    <p class="card-text"><%= product.content %></p>
+                    <div class="card-title d-flex justify-content-between">
+                      <h5><%= product.name %></h5>
+                      <p class="text-muted"><%= product.sell_price %></p>
+                    </div>
+                    <p class="card-text"><%= truncate(strip_tags(product.content.to_s), length: 30) %></p>
                   </div>
                 <% end %>
               </div>
