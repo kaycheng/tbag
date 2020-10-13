@@ -36,6 +36,16 @@ html, body {
   right: 700px;
 }
 
+.img-position-down {
+  position: relative;
+}
+
+.img-word-down {
+  position: absolute;
+  top: 250px;
+  right: 180px;
+}
+
 // Card
 .card-img-top {
   width: 100%;

@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
   def index
-    @products = Product.order(created_at: :desc).limit(4)
+    @products = Product.order(created_at: :desc).limit(8)
     @welcome_categories = Category.order(id: :asc).limit(3)
   end
 
