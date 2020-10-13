@@ -26,6 +26,16 @@ html, body {
   background-color: #18A2B8;
 }
 
+.img-position {
+  position: relative;
+}
+
+.img-word {
+  position: absolute;
+  top: 430px;
+  right: 700px;
+}
+
 // Card
 .card-img-top {
   width: 100%;

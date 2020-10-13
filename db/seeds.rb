@@ -2,7 +2,7 @@ Category.destroy_all
 
 category_list = [
   { name: "City" },
-  { name: "Long Trip" },
+  { name: "LongTrip" },
   { name: "Mountain" },
   { name: "Working" }
 ]
