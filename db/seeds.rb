@@ -14,8 +14,8 @@ end
 
 puts "Category created!"
 
-User.create(email: "admin@tbag.com", 
-            password: "123456", 
+User.create(email: ENV["ADMIN_COUNT"], 
+            password: ENV["ADMIN_PASSWORD"], 
             role: 0,
             confirmed_at: Time.now.utc)
 puts "Default admin created!"
