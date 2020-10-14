@@ -6,7 +6,7 @@ ruby '2.6.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -47,6 +47,11 @@ group :development, :test do
   gem 'faker', '~> 2.14'
   gem 'database_cleaner', '~> 1.8', '>= 1.8.5'
   gem 'letter_opener', '~> 1.4', '>= 1.4.1'
+  gem 'sqlite3', '~> 1.4'
+end
+
+group :production do
+  gem 'pg'
 end
 
 group :development do
