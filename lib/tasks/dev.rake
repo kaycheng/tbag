@@ -16,7 +16,7 @@ namespace :dev do
   task city_products: :environment do
     Product.destroy_all
     6.times do |i|
-      Product.create!(
+      p = Product.new(
         name: Faker::Name.name,
         list_price: Faker::Number.between(from: 1800, to: 5400),
         sell_price: Faker::Number.between(from: 1500, to: 4800),
@@ -24,54 +24,72 @@ namespace :dev do
         category_id: Category.find_by(name: 'City').id,
         vendor: Vendor.all.sample
       )
+      p.skus.new(
+        spec: Faker::Name.name,
+        quantity: Faker::Number.between(from: 10, to: 20)
+      )
+      p.save
     end
 
     puts "The city datas were created."
   end
 
   task mountain_products: :environment do
-    1.times do |i|
-      Product.create!(
-        name: Faker::Name.name,
-        list_price: Faker::Number.between(from: 1800, to: 5400),
-        sell_price: Faker::Number.between(from: 1500, to: 4800),
-        on_sell: true,
-        category_id: Category.find_by(name: 'Mountain').id,
-        vendor: Vendor.all.sample
-      )
-    end
+    
+    p = Product.new(
+      name: Faker::Name.name,
+      list_price: Faker::Number.between(from: 1800, to: 5400),
+      sell_price: Faker::Number.between(from: 1500, to: 4800),
+      on_sell: true,
+      category_id: Category.find_by(name: 'Mountain').id,
+      vendor: Vendor.all.sample
+    )
+    p.skus.new(
+      spec: Faker::Name.name,
+      quantity: Faker::Number.between(from: 10, to: 20)
+    )
+    p.save
 
     puts "The mountain datas were created."
   end
 
   task longtrip_products: :environment do
-    1.times do |i|
-      Product.create!(
-        name: Faker::Name.name,
-        list_price: Faker::Number.between(from: 1800, to: 5400),
-        sell_price: Faker::Number.between(from: 1500, to: 4800),
-        on_sell: true,
-        category_id: Category.find_by(name: 'LongTrip').id,
-        vendor: Vendor.all.sample
-      )
-    end
-
+    
+    p = Product.new(
+      name: Faker::Name.name,
+      list_price: Faker::Number.between(from: 1800, to: 5400),
+      sell_price: Faker::Number.between(from: 1500, to: 4800),
+      on_sell: true,
+      category_id: Category.find_by(name: 'LongTrip').id,
+      vendor: Vendor.all.sample
+    )
+    p.skus.new(
+      spec: Faker::Name.name,
+      quantity: Faker::Number.between(from: 10, to: 20)
+    )
+    p.save
+    
     puts "The long trip datas were created."
   end
 
   task working_products: :environment do
-    1.times do |i|
-      Product.create!(
-        name: Faker::Name.name,
-        list_price: Faker::Number.between(from: 1800, to: 5400),
-        sell_price: Faker::Number.between(from: 1500, to: 4800),
-        on_sell: true,
-        category_id: Category.find_by(name: 'Working').id,
-        vendor: Vendor.all.sample
-      )
-    end
+    
+    p = Product.new(
+      name: Faker::Name.name,
+      list_price: Faker::Number.between(from: 1800, to: 5400),
+      sell_price: Faker::Number.between(from: 1500, to: 4800),
+      on_sell: true,
+      category_id: Category.find_by(name: 'Working').id,
+      vendor: Vendor.all.sample
+    )
+    p.skus.new(
+      spec: Faker::Name.name,
+      quantity: Faker::Number.between(from: 10, to: 20)
+    )
+    p.save
 
     puts "The working datas were created."
     puts "There are #{Product.count} products data"
+    puts "There are #{Sku.count} skus data"
   end
 end
