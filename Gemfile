@@ -36,6 +36,7 @@ gem 'friendly_id', '~> 5.4'
 gem 'acts_as_list', '~> 1.0', '>= 1.0.2'
 gem 'faraday', '~> 1.0', '>= 1.0.1'
 gem 'aasm', '~> 5.1', '>= 5.1.1'
+gem 'faker', '~> 2.14'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -44,7 +45,6 @@ group :development, :test do
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 4.0', '>= 4.0.1'
   gem 'factory_bot_rails', '~> 6.1'
-  gem 'faker', '~> 2.14'
   gem 'database_cleaner', '~> 1.8', '>= 1.8.5'
   gem 'letter_opener', '~> 1.4', '>= 1.4.1'
   gem 'sqlite3', '~> 1.4'
