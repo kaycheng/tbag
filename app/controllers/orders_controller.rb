@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
     if @order.save
       linepay = LinepayService.new('payments/request')
       linepay.perform({
-        productName: "BFF",
+        productName: "TBag",
         amount: current_cart.total_price.to_i,
         currency: "TWD",
         confirmUrl: "http://localhost:3000/orders/confirm",

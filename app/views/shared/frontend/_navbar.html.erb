@@ -1,22 +1,22 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top p-3">
+<nav class="navbar navbar-expand-sm navbar-light bg-white shadow-sm sticky-top p-3">
   <a class="navbar-brand font-weight-bold" href="/">Tbag</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse my-2" id="navbarSupportedContent">
 
     <ul class="navbar-nav ml-auto">
       
-      <form class="form-inline my-2 my-lg-0" action="/search">
+      <form class="form-inline mr-2" action="/search">
         <input class="form-control" name="q" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+        <button class="btn btn-outline-success" type="submit">
           <i class='fas fa-search'></i>
         </button>
       </form>
 
-      <li class="nav-item ml-2">
+      <li class="nav-item">
         <% if user_signed_in? %> 
           <%= link_to orders_path, class: "nav-link" do %>
             <i class="fas fa-user fa-lg"></i>

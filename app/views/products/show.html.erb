@@ -1,11 +1,11 @@
-<section class="product-content container">
+<section class="product-content container-fluid">
   <div class="row">
-    <div class="col-7">
+    <div class="col-md-7 col-sm-12">
       <div class="product-image">
-        <%= image_tag @product.cover_image, class: "d-block w-100" if @product.cover_image.attached? %>
+        <%= image_tag @product.cover_image, class: "d-block w-100 img-400" if @product.cover_image.attached? %>
       </div>
     </div>
-    <div class="col-5" data-controller="product" data-product-id="<%= @product.code %>">
+    <div class="col-md-5 col-sm-12" data-controller="product" data-product-id="<%= @product.code %>">
       <h4 class="text-muted"><%= @product.vendor.title %></h4>
       <h2><%= @product.name %></h2>
       <p class="line-through"><strong>List Price: </strong><%= @product.list_price %></p>
@@ -55,7 +55,7 @@
   </div>
   <hr>
   <div class="row justify-content-center">
-    <div class="col-10">
+    <div class="col-md-10 col-sm-12">
       <div class="content">
         <h5>Product Introduce</h5>
         <p><%= @product.content %></p>

@@ -1,23 +1,27 @@
-<div class="container">
-  <h3 class="mb-3">Search Result</h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Introduce</th>
-        <th>Price</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @products.each do |product| %>
-        <tr>
-          <td><%= image_tag product.cover_image.variant(resize_to_limit: [80, 120]) if product.cover_image.attached? %></td>
-          <td><%= link_to product.name, product_path(product), class: "text-decoration-none text-dark" %></td>
-          <td><%= truncate(strip_tags(product.content.to_s), length: 30) %></td>
-          <td><%= product.sell_price %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<div class="container-fluid">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-sm-12">
+      <h3 class="mb-3">Search Result</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Picture</th>
+            <th>Name</th>
+            <th>Introduce</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @products.each do |product| %>
+            <tr>
+              <td><%= image_tag product.cover_image.variant(resize_to_limit: [75, 100]) if product.cover_image.attached? %></td>
+              <td class="align-middle"><%= link_to product.name, product_path(product), class: "text-decoration-none text-dark" %></td>
+              <td class="align-middle"><%= truncate(strip_tags(product.content.to_s), length: 30) %></td>
+              <td class="align-middle"><%= product.sell_price %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
