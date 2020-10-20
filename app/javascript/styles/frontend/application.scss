@@ -57,9 +57,18 @@ html, body {
 @media only screen and (max-width: 576px) {
   .card-img-top,
   .welcome-img-top {
-    width: 177px;
+    width: 160px;
     height: 150px;
     object-fit: cover;
+  }
+
+  .card-col {
+    width: 160px !important;
+  }
+
+  .row-cols-1 > * {
+    flex: 0 0 50% !important;
+    max-width: 100%;
   }
 }
 
@@ -93,6 +102,15 @@ html, body {
   .card-text {
     line-height: 3rem;
   }
+}
+
+.card-body {
+  padding: 0.7rem !important;
+}
+
+.text-break {
+  word-break: break-word !important; // IE & < Edge 18
+  overflow-wrap: break-word !important;
 }
 
 // Show

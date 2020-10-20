@@ -2,10 +2,10 @@
   <div class="container-fluid">
     <div class="row justify-content-center mt-2">
       <div class="col-12">
-        <div class="row justify-content-center">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
           <% products.each do |product| %>
-          <div class="col md-3 sm-6 mt-2 mb-2">
-            <div class="card h-100 border-0">
+          <div class="col sm-6 md-3 mt-2 mb-2">
+            <div class="card h-100 card-col shadow-sm rounded">
               <%= link_to product_path(product), class: "text-decoration-none text-dark" do %>
               <%= image_tag product.cover_image, class: "card-img-top" if product.cover_image.attached? %>
               <div class="card-body">
