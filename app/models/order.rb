@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   include AASM 
 
-  belongs_to :user
+  belongs_to :user, dependent: :destroy
   has_many :order_items
 
   validates :recipient, :tel, :address, presence: true
