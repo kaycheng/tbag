@@ -31,8 +31,8 @@ puts "Vendors are created!"
 6.times do 
   p = Product.new(
     name: Faker::Name.name,
-    list_price: Faker::Number.between(from: 1800, to: 5400),
-    sell_price: Faker::Number.between(from: 1500, to: 4800),
+    list_price: Faker::Number.between(from: 4000, to: 5500),
+    sell_price: Faker::Number.between(from: 2500, to: 4000),
     on_sell: true,
     category_id: Category.find_by(name: 'City').id,
     vendor: Vendor.all.sample
