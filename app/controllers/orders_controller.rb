@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
         productName: "TBag",
         amount: current_cart.total_price.to_i,
         currency: "TWD",
-        confirmUrl: "http://localhost:3000/orders/confirm",
+        confirmUrl: "https://tbagcem.herokuapp.com/orders/confirm",
         orderId: @order.num
       })
 
@@ -75,7 +75,7 @@ class OrdersController < ApplicationController
       productName: "BFF",
       amount: @order.total_price.to_i,
       currency: "TWD",
-      confirmUrl: "http://localhost:3000/orders/#{@order.id}/pay_confirm",
+      confirmUrl: "https://tbagcem.herokuapp.com/orders/#{@order.id}/pay_confirm",
       orderId: @order.num
     })
 
