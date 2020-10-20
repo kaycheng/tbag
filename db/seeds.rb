@@ -96,8 +96,15 @@ end
 puts "There are #{Product.count} products data."
 puts "There are #{Sku.count} skus data."
 
-User.create(email: ENV["ADMIN_COUNT"], 
+User.create(username: "tbagadmin",
+            email: ENV["ADMIN_COUNT"], 
             password: ENV["ADMIN_PASSWORD"], 
             role: 0,
             confirmed_at: Time.now.utc)
 puts "Default admin created!"
+
+User.create(username: "tbagtest",
+            email: "tbagtest@hot.tw",
+            password: '123456',
+            role: 1,
+            confirmed_at: Time.now.utc)
