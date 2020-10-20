@@ -1,7 +1,6 @@
 Category.destroy_all
 Vendor.destroy_all
 Product.destroy_all
-Sku.destroy_all
 User.destroy_all
 
 # Category
