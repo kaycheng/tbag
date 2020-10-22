@@ -10,7 +10,7 @@ class LinepayService
       req.headers['X-LINE-ChannelSecret'] = ENV['LINE_PAY_SECRET']
       req.body = body.to_json
     end
-
+  
     @result = JSON.parse(response.body)
   end
 

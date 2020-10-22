@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
     if @order.save
       linepay = LinepayService.new('payments/request')
       linepay.perform({
-        productName: "TBag",
+        productName: "TBagcem",
         amount: current_cart.total_price.to_i,
         currency: "TWD",
         confirmUrl: "https://tbagcem.herokuapp.com/orders/confirm",
