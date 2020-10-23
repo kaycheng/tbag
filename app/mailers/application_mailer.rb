@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'tbag@hottaiwan.com'
+  default from: 'service@tbagcem.com'
   layout 'mailer'
 end
