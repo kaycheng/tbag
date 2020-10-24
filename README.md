@@ -30,11 +30,16 @@ See [user_stories.md](/user_stories.md)
 ## Features
 
 Line Pay API  
-Google login
-Mailgun
-GoDaddy
-Heroku
-CloudFlare
+
+Google login  
+
+Mailgun  
+
+GoDaddy  
+
+Heroku  
+
+CloudFlare  
 
 
 ### Clone this repository
