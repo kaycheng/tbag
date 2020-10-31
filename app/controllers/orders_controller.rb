@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
         productName: "TBagcem",
         amount: current_cart.total_price.to_i,
         currency: "TWD",
-        confirmUrl: "http://www.tbagcem.com/orders/confirm",
+        confirmUrl: "https://tbagcem.com/orders/confirm",
         orderId: @order.num
       })
 
@@ -75,7 +75,7 @@ class OrdersController < ApplicationController
       productName: "BFF",
       amount: @order.total_price.to_i,
       currency: "TWD",
-      confirmUrl: "http://www.tbagcem.com/orders/#{@order.id}/pay_confirm",
+      confirmUrl: "https://tbagcem.com/orders/#{@order.id}/pay_confirm",
       orderId: @order.num
     })
 

@@ -1,8 +1,8 @@
 # TBagcem
 
-[TBagcem](http://www.tbagcem.com) is a commercial website for customers who can buy favorite bag on it. The website is used responsive web design, so it's easily to operate from mobile device, tablet and computer. And we use the third party of [line pay API v2](https://pay.line.me/tw/developers/main/main?locale=en_US) to deal with the payment(We only use sandbox in this website, so you can test it at ease). The customer can use their google account to log in our website, but it needs confirmation by email, if you don't want to register, you can use our test account:
+[TBagcem](https://tbagcem.com) is a commercial website for customers who can buy favorite bag on it. The website is used responsive web design, so it's easily to operate from mobile device, tablet and computer. And we use the third party of [line pay API v2](https://pay.line.me/tw/developers/main/main?locale=en_US) to deal with the payment(We only use sandbox in this website, so you can test it at ease). The customer can use their google account to log in our website, but it needs confirmation by email, if you don't want to register, you can use our test account:
 
-website: [TBagcem](http://www.tbagcem.com)  
+website: [TBagcem](https://tbagcem.com)  
 
 account: tbagtest@hot.tw  
 
@@ -32,6 +32,8 @@ See [user_stories.md](/user_stories.md)
 Line Pay API  
 
 Google login  
+
+Amazon S3
 
 Mailgun  
 
