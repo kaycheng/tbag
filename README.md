@@ -1,6 +1,6 @@
 # TBagcem
 
-[TBagcem](https://tbagcem.com) is a commercial website for customers who can buy favorite bag on it. The website is used responsive web design, so it's easily to operate from mobile device, tablet and computer. And we use the third party of [line pay API v2](https://pay.line.me/tw/developers/main/main?locale=en_US) to deal with the payment(We only use sandbox in this website, so you can test it at ease). The customer can use their google account to log in our website, but it needs confirmation by email, if you don't want to register, you can use our test account:
+[TBagcem](https://tbagcem.com) is a commercial website for customers who can buy a favorite bag on it. The website is used responsive web design, so it's easy to operate from mobile devices, tablets, and computers. And we use the third party of [line pay API v2](https://pay.line.me/tw/developers/main/main?locale=en_US) to deal with the payment(We only use sandbox on this website, so you can test it at ease). The customer can use their Google account to log in to our website, but it needs confirmation by email, if you don't want to register, you can use our test account:
 
 website: [TBagcem](https://tbagcem.com)  
 
